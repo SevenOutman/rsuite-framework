@@ -1,7 +1,8 @@
 import App from './App/index';
 import Application from './Application';
 
-export function app() {
+export function app(mod) {
+  if (mod) return app()[mod];
   return Application.getInstance();
 }
 

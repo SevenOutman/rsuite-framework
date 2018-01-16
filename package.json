@@ -2,7 +2,7 @@
   "name": "@rsuite/framework",
   "version": "1.0.0",
   "description": "Framework to power rsuite apps",
-  "main": "src/framework.js",
+  "main": "framework.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,8 +27,6 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
     "react-helmet": "^5.2.0",
     "react-intl": "^2.4.0",
     "react-redux": "^5.0.6",
@@ -39,6 +37,12 @@
     "reselect": "^3.0.1"
   },
   "peerDependencies": {
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
     "rsuite": "^2.0.12"
+  },
+  "devDependencies": {
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2"
   }
 }
