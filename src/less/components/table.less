@@ -1,0 +1,89 @@
+
+@head-background:#f5f5f5;
+
+.@{prefix}table-cell{
+    border-width:0 !important;
+    .disabled{
+        cursor: not-allowed;
+        color: @font-disabled-color;
+    }
+}
+.@{prefix}table-sortable{
+    .icon-sort{
+        color: #aaa;
+    }
+    .icon-sort-asc,.icon-sort-desc{
+        color: @H500 !important;
+    }
+}
+
+.@{prefix}table-row:hover{
+    background: @head-background;
+      .@{prefix}table-cell-group{
+          background: @head-background;
+      }
+    .@{prefix}table-cell{
+        background: @head-background;
+    }
+    .hover-show{
+        visibility:inherit
+    }
+    .hover-active{
+        color: @font-primary-color;
+        font-weight: bold;
+    }
+}
+
+
+
+// 分页组件
+.@{prefix}table-pagination-wrapper{
+    .table-num{
+        color: @H500;
+        font-style: inherit;
+    }
+}
+
+.label-chart-wrapper{
+    background: #eee;
+    height: 20px;
+    .label-chart{
+        color: #fff;
+        font-size: 12px;
+        display: inline-block;
+        height: 20px;
+        &.CH300{
+            background: @H300;
+        }
+        &.CH400{
+            background: @H400;
+        }
+        &.CH500{
+            background: @H500;
+        }
+        &.CH600{
+            background: @H600;
+        }
+    }
+}
+
+
+
+.label-context{
+    padding-left:8px;
+    display: inline-block;
+    text-align: right;
+    width: 100px;
+}
+
+.bar-cell{
+    background: @H500;
+    color:@H500;
+}
+
+.text-ellipsis{
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+    .ellipsis-basic();
+}
