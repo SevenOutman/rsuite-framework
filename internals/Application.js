@@ -5,7 +5,7 @@ import { Router, hashHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { combineReducers, applyMiddleware, compose, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import Config from './Config';
+import Config, { config } from './Config';
 import Intl from './Intl';
 import authReducer from './Auth/reducer';
 import configReducer from './Config/reducer';
@@ -60,7 +60,7 @@ class Application {
           auth: authReducer,
           config: configReducer
         }),
-        store: reducers,
+        [this._config.store.namespace]: reducers,
         routing: routerReducer,
       }), composeEnhancers(applyMiddleware(...middlewares)),
     ));
