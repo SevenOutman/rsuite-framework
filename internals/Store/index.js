@@ -1,4 +1,4 @@
-import { app } from '../app';
+import { app } from '../App';
 
 export function getState() {
   const store = app('store');

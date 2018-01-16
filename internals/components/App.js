@@ -3,10 +3,11 @@ import { addLocaleData, IntlProvider } from 'react-intl';
 import zh from 'react-intl/locale-data/zh';
 import en from 'react-intl/locale-data/en';
 import Auth from '../Auth';
-import NotFound from '../pages/404';
+import NotAuthorized from '../pages/404';
+import Intl from '../Intl';
 
-import locales from '../locales';
 import { title } from '../view';
+import { config } from '../Config';
 addLocaleData([...zh, ...en]);
 
 class App extends Component {
@@ -61,15 +62,15 @@ class App extends Component {
   }
 
   render() {
-    const { locale, children } = this.props;
+    const { children } = this.props;
     return (
       <IntlProvider
-        locale={locale}
-        messages={locales[locale]}
+        locale={config('app.locale')}
+        messages={Intl.messages()}
       >
         <div className="page">
           {title(this.viewTitle())}
-          {this.isRouteAuthorized() ? children : <NotFound />}
+          {this.isRouteAuthorized() ? children : <NotAuthorized />}
         </div>
       </IntlProvider>
     );
