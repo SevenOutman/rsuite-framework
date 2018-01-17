@@ -5,14 +5,12 @@ import { Router, hashHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { combineReducers, applyMiddleware, compose, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import Config, { config } from './Config';
-import Intl from './Intl';
+import Config, { config, initConfig } from './Config';
+import Intl, { initIntl } from './Intl';
 import authReducer from './Auth/reducer';
 import configReducer from './Config/reducer';
-
-const middlewares = [thunkMiddleware];
-/** redux devtools */
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+import Auth from './Auth';
+import { initStore } from './Store';
 
 let instance = null;
 
@@ -29,17 +27,10 @@ class Application {
     return instance;
   }
 
-  _config = {};
-
   constructor(config) {
     instance = this;
 
-    this.loadConfig(config);
-  }
-
-  loadConfig(config) {
-    // registerConfig after registerStore
-    this._config = config;
+    this.registerConfig(config);
   }
 
   register(key, value) {
@@ -49,22 +40,16 @@ class Application {
     });
   }
 
-  registerConfig() {
-    this.register('config', Config(this._config));
+  registerConfig(config) {
+    this.register('config', initConfig(config));
+  }
+
+  registerAuth() {
+    this.register('auth', Auth);
   }
 
   registerStore(reducers) {
-    this.register('store', createStore(
-      combineReducers({
-        framework: combineReducers({
-          auth: authReducer,
-          config: configReducer
-        }),
-        [this._config.store.namespace]: reducers,
-        routing: routerReducer,
-      }), composeEnhancers(applyMiddleware(...middlewares)),
-    ));
-    this.registerConfig();
+    this.register('store', initStore(reducers));
   }
 
   registerRoutes(pages) {
@@ -75,7 +60,7 @@ class Application {
   }
 
   registerLocales(locales) {
-    this.register('locales', Intl(locales));
+    this.register('intl', initIntl(locales));
   }
 
   start(elOrSelector) {
@@ -84,11 +69,10 @@ class Application {
       elOrSelector = document.querySelector(elOrSelector);
     }
 
-    const store = this.store
-    const history = syncHistoryWithStore(hashHistory, store);
-
+    const reduxStore = this.store._reduxStore;
+    const history = syncHistoryWithStore(hashHistory, reduxStore);
     return ReactDOM.render((
-      <Provider store={store}>
+      <Provider store={reduxStore}>
         <Router history={history} routes={this.routes} />
       </Provider>
     ), elOrSelector);

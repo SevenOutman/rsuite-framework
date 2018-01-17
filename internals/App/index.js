@@ -18,6 +18,11 @@ export function app(mod) {
   return Application.getInstance();
 }
 
+// alias for app(mod)
+export function mod(name) {
+  return app()[name];
+}
+
 export function app_name() {
   return config('app.name');
 }

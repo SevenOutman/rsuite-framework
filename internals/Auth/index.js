@@ -3,10 +3,15 @@ import { auth as authSelector } from './selectors';
 import { getState } from '../Store';
 
 
-const Auth = {};
-
-Auth.user = function () {
+function user() {
   return authSelector(getState()).user;
-};
+}
 
-export default Auth;
+function id() {
+  return user().id;
+}
+
+export default {
+  user,
+  id
+};

@@ -4,13 +4,20 @@ import zh from 'react-intl/locale-data/zh';
 import en from 'react-intl/locale-data/en';
 import Auth from '../Auth';
 import NotAuthorized from '../pages/404';
-import Intl from '../Intl';
 
 import { title } from '../view';
 import { config } from '../Config';
+import { app } from '../App';
+
 addLocaleData([...zh, ...en]);
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    app().register('router', props.router);
+  }
+
   isRouteAuthorized() {
     const { routes } = this.props;
     const viewUser = Auth.user();
@@ -66,7 +73,7 @@ class App extends Component {
     return (
       <IntlProvider
         locale={config('app.locale')}
-        messages={Intl.messages()}
+        messages={app('intl').messages()}
       >
         <div className="page">
           {title(this.viewTitle())}

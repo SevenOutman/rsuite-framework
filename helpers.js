@@ -1,5 +1,7 @@
 export {
-  app_name
+  app,
+  app_name,
+  mod
 } from './internals/App';
 
 export {
