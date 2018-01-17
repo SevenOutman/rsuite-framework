@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "react": "^15.6.2",
-    "react-dom": "^15.6.2"
+    "react-dom": "^15.6.2",
+    "redux-logger": "^3.0.6"
   }
 }

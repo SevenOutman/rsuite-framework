@@ -11,6 +11,7 @@ import authReducer from './Auth/reducer';
 import configReducer from './Config/reducer';
 import Auth from './Auth';
 import { initStore } from './Store';
+import { initModel } from './ORM';
 
 let instance = null;
 
@@ -29,7 +30,6 @@ class Application {
 
   constructor(config) {
     instance = this;
-
     this.registerConfig(config);
   }
 
@@ -46,6 +46,12 @@ class Application {
 
   registerAuth() {
     this.register('auth', Auth);
+  }
+
+  registerModels(models) {
+    Object.keys(models).forEach((tableName) => {
+      initModel(tableName, models[tableName]);
+    })
   }
 
   registerStore(reducers) {

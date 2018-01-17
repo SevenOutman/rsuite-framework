@@ -1,3 +1,6 @@
+export function optional(obj) {
+  return obj || {};
+}
 
 export function toObjectLine(object) {
   let objectLine = {};

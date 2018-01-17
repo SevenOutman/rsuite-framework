@@ -1,17 +1,30 @@
 import { createSelector } from 'reselect';
-import { auth as authSelector } from './selectors';
-import { getState } from '../Store';
+import { auth as authSelector, authUser as authUserSelector } from './selectors';
+import { dispatch, getState } from '../Store';
+import { optional as opt } from '../utils';
+import { AUTH_SET_USER } from './reducer';
 
 
-function user() {
-  return authSelector(getState()).user;
+function user(user) {
+  if (user) {
+    return setUser(user);
+  }
+  return authUserSelector(getState());
 }
 
 function id() {
-  return user().id;
+  return opt(user()).id;
+}
+
+function setUser(user) {
+  dispatch({
+    type: AUTH_SET_USER,
+    user
+  })
 }
 
 export default {
   user,
-  id
+  id,
+  setUser
 };

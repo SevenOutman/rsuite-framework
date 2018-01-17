@@ -27,6 +27,13 @@ export default Store;
 
 
 const middlewares = [thunkMiddleware];
+
+if (process.env.NODE_ENV === 'development') {
+
+  const logger = require('redux-logger').default;
+  middlewares.push(logger);
+}
+
 /** redux devtools */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
