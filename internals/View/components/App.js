@@ -78,7 +78,6 @@ class App extends Component {
       if (!component) {
         continue;
       }
-      console.log(component);
       if (component.layout || component.layoutProps) {
         viewLayout = component.layout;
         layoutProps = component.layoutProps;
@@ -117,4 +116,4 @@ class App extends Component {
   }
 }
 
-export default App;
+module.exports = App;

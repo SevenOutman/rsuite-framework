@@ -2,16 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, hashHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
-import { combineReducers, applyMiddleware, compose, createStore } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import Config, { config, initConfig } from './Config';
-import Intl, { initIntl } from './Intl';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { config, initConfig } from './Config';
+import { initIntl } from './Intl';
 import Auth from './Auth';
 import { initStore } from './Store';
 import { initModel } from './ORM';
 import { registerLayouts } from './View';
 import View from './View';
+import { app, mods } from './App';
 
 let instance = null;
 
@@ -29,6 +28,8 @@ class Application {
     return instance;
   }
 
+  _mods = {};
+
   constructor(config) {
     instance = this;
 
@@ -36,8 +37,12 @@ class Application {
     config && this.registerConfig(config);
   }
 
+  mod(name) {
+    return this._mods[name];
+  }
+
   register(key, value) {
-    return Object.defineProperty(this, key, {
+    return Object.defineProperty(this._mods, key, {
       value,
       writable: false,
     });
@@ -73,7 +78,7 @@ class Application {
   registerRoutes(pages) {
     this.register('routes', Object.assign({}, {
       path: '/',
-      component: require('./View/containers/Index').default,
+      component: require('./View/components/App'),
     }, pages));
   }
 
@@ -82,16 +87,20 @@ class Application {
   }
 
   start(elOrSelector) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(mods());
+    }
+
     // is selector
     if (typeof elOrSelector === 'string') {
       elOrSelector = document.querySelector(elOrSelector);
     }
 
-    const reduxStore = this.store._reduxStore;
+    const reduxStore = app('store')._reduxStore;
     const history = syncHistoryWithStore(hashHistory, reduxStore);
     return ReactDOM.render((
       <Provider store={reduxStore}>
-        <Router history={history} routes={this.routes} />
+        <Router history={history} routes={app('routes')} />
       </Provider>
     ), elOrSelector);
   }

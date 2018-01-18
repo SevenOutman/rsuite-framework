@@ -1,3 +1,6 @@
+import Application from '../Application';
+import { config } from '../Config';
+
 const App = {};
 
 App.setLocale = function (locale) {
@@ -10,17 +13,14 @@ App.name = function () {
 
 export default App;
 
-import Application from '../Application';
-import { config } from '../Config';
 
 export function app(mod) {
-  if (mod) return app()[mod];
+  if (mod) return app().mod(mod);
   return Application.getInstance();
 }
 
-// alias for app(mod)
-export function mod(name) {
-  return app()[name];
+export function mods() {
+  return app()._mods;
 }
 
 export function app_name() {
