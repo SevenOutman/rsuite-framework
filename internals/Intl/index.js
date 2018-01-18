@@ -1,4 +1,4 @@
-import { config } from '../Config';
+import { config } from '../Config/functions';
 import { toObjectLine } from '../utils';
 
 let _locales = {};
@@ -21,8 +21,3 @@ export function initIntl(locales) {
 }
 
 export default Intl;
-
-export function localize(id) {
-  return messages()[id];
-}
-

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { framework as frameworkSelector } from '../Store/selectors';
-import { config } from '../Config';
+import { config } from '../Config/functions';
 import { model } from '../ORM';
 
 export const auth = createSelector(

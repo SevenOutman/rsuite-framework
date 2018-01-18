@@ -1,9 +1,10 @@
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 import configReducer from '../Config/reducer';
 import { routerReducer } from 'react-router-redux';
 import authReducer from '../Auth/reducer';
-import { config, syncConfigToStore } from '../Config';
-import thunkMiddleware from 'redux-thunk';
+import { syncConfigToStore } from '../Config';
+import { config } from '../Config/functions';
 
 let _reduxStore = null;
 

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import zh from 'react-intl/locale-data/zh';
 import en from 'react-intl/locale-data/en';
-import Auth from '../../Auth/index';
+import Auth from '../../Auth';
 import NotAuthorized from '../pages/404';
 
-import { title } from '../../view';
-import { config } from '../../Config/index';
-import { app } from '../../App/index';
+import { title } from '../../View/functions';
+import { config } from '../../Config/functions';
+import { app } from '../../App/functions';
 import View from '../../View';
 
 addLocaleData([...zh, ...en]);

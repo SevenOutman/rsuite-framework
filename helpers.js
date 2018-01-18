@@ -2,16 +2,16 @@ export {
   app,
   app_name,
   mods
-} from './internals/App';
+} from './internals/App/functions';
 
 export {
   title
-} from './internals/view';
+} from './internals/View/functions';
 
 export {
   config
-} from './internals/Config';
+} from './internals/Config/functions';
 
 export {
   localize
-} from './internals/Intl';
+} from './internals/Intl/functions';

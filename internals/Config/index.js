@@ -2,7 +2,7 @@ import { toObjectLine } from '../utils';
 import { dispatch } from '../Store';
 import { CONFIG_INIT, CONFIG_UPDATE } from './reducer';
 import { config as configSelector } from './selectors';
-import { app } from '../App';
+import { app } from '../App/functions';
 
 let _config = {};
 
@@ -28,13 +28,6 @@ const Config = {
 };
 
 export default Config;
-
-export function config(key, value) {
-  if (void 0 !== value) {
-    return set(key, value);
-  }
-  return get(key);
-}
 
 export function initConfig(values) {
   _config = toObjectLine(values);

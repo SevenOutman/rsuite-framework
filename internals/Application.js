@@ -8,9 +8,8 @@ import { initIntl } from './Intl';
 import Auth from './Auth';
 import { initStore } from './Store';
 import { initModel } from './ORM';
-import { registerLayouts } from './View';
-import View from './View';
-import { app, mods } from './App';
+import View, { registerLayouts } from './View';
+import { app, mods } from './App/functions';
 
 let instance = null;
 
