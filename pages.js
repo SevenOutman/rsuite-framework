@@ -1,1 +1,1 @@
-export ErrorNotFound from './internals/pages/404';
+export ErrorNotFound from './internals/View/pages/404';

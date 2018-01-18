@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import zh from 'react-intl/locale-data/zh';
 import en from 'react-intl/locale-data/en';
-import Auth from '../Auth';
+import Auth from '../../Auth/index';
 import NotAuthorized from '../pages/404';
 
-import { title } from '../view';
-import { config } from '../Config';
-import { app } from '../App';
+import { title } from '../../view';
+import { config } from '../../Config/index';
+import { app } from '../../App/index';
+import View from '../../View';
 
 addLocaleData([...zh, ...en]);
 
@@ -68,6 +69,31 @@ class App extends Component {
     return viewTitle;
   }
 
+  viewLayout() {
+    const { routes } = this.props;
+    let viewLayout = config('view.defaultLayout');
+    for (let j = 0; j < routes.length; j++) {
+      const { component } = routes[j];
+      if (!component) {
+        continue;
+      }
+      if (component.layout) {
+        viewLayout = component.layout;
+      }
+    }
+    return viewLayout;
+  }
+
+  renderPage(Page) {
+    const Layout = View.layout(this.viewLayout());
+
+    return (
+      <Layout>
+        {Page}
+      </Layout>
+    );
+  }
+
   render() {
     const { children } = this.props;
     return (
@@ -77,7 +103,7 @@ class App extends Component {
       >
         <div className="page">
           {title(this.viewTitle())}
-          {this.isRouteAuthorized() ? children : <NotAuthorized />}
+          {this.renderPage(this.isRouteAuthorized() ? children : <NotAuthorized />)}
         </div>
       </IntlProvider>
     );

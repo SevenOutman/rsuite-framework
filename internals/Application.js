@@ -7,11 +7,11 @@ import { combineReducers, applyMiddleware, compose, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import Config, { config, initConfig } from './Config';
 import Intl, { initIntl } from './Intl';
-import authReducer from './Auth/reducer';
-import configReducer from './Config/reducer';
 import Auth from './Auth';
 import { initStore } from './Store';
 import { initModel } from './ORM';
+import { registerLayouts } from './View';
+import View from './View';
 
 let instance = null;
 
@@ -21,6 +21,7 @@ let instance = null;
  * @method registerStore(reducers)
  * @method registerRoutes(pageRoutes)
  * @method registerLocales(locales)
+ * @method registerLayouts(layouts)
  * @method start(elOrSelector)
  */
 class Application {
@@ -53,7 +54,16 @@ class Application {
   registerModels(models) {
     Object.values(models).forEach((ModelClass) => {
       initModel(ModelClass);
-    })
+    });
+  }
+
+  registerLayouts(layouts) {
+    registerLayouts(layouts);
+    this.registerView();
+  }
+
+  registerView() {
+    this.register('view', View);
   }
 
   registerStore(reducers) {
@@ -63,7 +73,7 @@ class Application {
   registerRoutes(pages) {
     this.register('routes', Object.assign({}, {
       path: '/',
-      component: require('./containers/Index').default,
+      component: require('./View/containers/Index').default,
     }, pages));
   }
 
