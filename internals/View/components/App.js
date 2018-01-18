@@ -71,24 +71,31 @@ class App extends Component {
 
   viewLayout() {
     const { routes } = this.props;
-    let viewLayout = config('view.defaultLayout');
+    let viewLayout;
+    let layoutProps;
     for (let j = 0; j < routes.length; j++) {
       const { component } = routes[j];
       if (!component) {
         continue;
       }
-      if (component.layout) {
+      console.log(component);
+      if (component.layout || component.layoutProps) {
         viewLayout = component.layout;
+        layoutProps = component.layoutProps;
       }
     }
-    return viewLayout;
+    return {
+      layout: viewLayout || config('view.defaultLayout'),
+      props: layoutProps || {},
+    };
   }
 
   renderPage(Page) {
-    const Layout = View.layout(this.viewLayout());
+    const { layout, props } = this.viewLayout();
+    const Layout = View.layout(layout);
 
     return (
-      <Layout>
+      <Layout {...props}>
         {Page}
       </Layout>
     );

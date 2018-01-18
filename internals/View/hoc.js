@@ -8,6 +8,7 @@ export function pageHOC(Comp, connect) {
 
     static displayName = `Page(${Comp.displayName || Comp.name})`;
     static layout = Comp.layout;
+    static layoutProps = Comp.layoutProps;
 
     render() {
       return (
