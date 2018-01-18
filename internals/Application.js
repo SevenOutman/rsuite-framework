@@ -30,7 +30,9 @@ class Application {
 
   constructor(config) {
     instance = this;
-    this.registerConfig(config);
+
+    // 可以直接传入 config，也可以在子类中手动调 registerConfig
+    config && this.registerConfig(config);
   }
 
   register(key, value) {
@@ -49,8 +51,8 @@ class Application {
   }
 
   registerModels(models) {
-    Object.keys(models).forEach((tableName) => {
-      initModel(tableName, models[tableName]);
+    Object.values(models).forEach((ModelClass) => {
+      initModel(ModelClass);
     })
   }
 

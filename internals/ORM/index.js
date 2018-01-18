@@ -41,9 +41,14 @@ export function model(tableName) {
   return _models[tableName];
 }
 
-export function initModel(tableName, ModelClass) {
+export function initModel(ModelClass, tableName = ModelClass.tableName) {
   if (!(new ModelClass() instanceof Model)) {
     console.error('ORM model must extend Model at @rsuite/framework/orm');
+    return ModelClass;
+  }
+
+  if (!ModelClass.tableName && !tableName) {
+    console.error('ORM model must declare tableName');
     return ModelClass;
   }
 

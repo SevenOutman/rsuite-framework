@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { auth as authSelector, authUser as authUserSelector } from './selectors';
+import { authUser as authUserSelector } from './selectors';
 import { dispatch, getState } from '../Store';
 import { optional as opt } from '../utils';
 import { AUTH_SET_USER } from './reducer';
