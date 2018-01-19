@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 
 class ErrorNotFound extends Component {
+
+  static layout = 'error';
+
   render() {
     return (
-      <div>
+      <div className="page-content">
         404
       </div>
     )
   }
 }
 
-export default ErrorNotFound;
+module.exports = ErrorNotFound;

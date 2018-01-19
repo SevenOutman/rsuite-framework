@@ -34,7 +34,7 @@ class App extends Component {
         for (let i = 0; i < allow.length; i += 1) {
           let judge = allow[i];
           if ((typeof judge === 'function' && judge(viewUser)) ||
-            viewUser.role === judge) {
+            (viewUser && viewUser.role === judge)) {
             authorized = true;
             break;
           }
@@ -44,7 +44,7 @@ class App extends Component {
         for (let i = 0; i < deny.length; i += 1) {
           let judge = deny[i];
           if ((typeof judge === 'function' && judge(viewUser)) ||
-            viewUser.role === judge) {
+            (viewUser && viewUser.role === judge)) {
             authorized = false;
             break;
           }
@@ -83,19 +83,29 @@ class App extends Component {
         layoutProps = component.layoutProps;
       }
     }
+
     return {
       layout: viewLayout || config('view.defaultLayout'),
       props: layoutProps || {},
     };
   }
 
-  renderPage(Page) {
-    const { layout, props } = this.viewLayout();
-    const Layout = View.layout(layout);
+  renderPage() {
+    if (this.isRouteAuthorized()) {
+      const { layout, props } = this.viewLayout();
+      const Layout = View.layout(layout);
+      const Page = this.props.children;
+      return (
+        <Layout {...props}>
+          {Page}
+        </Layout>
+      );
+    }
+    const Layout = View.layout(NotAuthorized.layout);
 
     return (
-      <Layout {...props}>
-        {Page}
+      <Layout {...(NotAuthorized.layoutProps || {})}>
+        <NotAuthorized />
       </Layout>
     );
   }
@@ -109,7 +119,7 @@ class App extends Component {
       >
         <div className="page">
           {title(this.viewTitle())}
-          {this.renderPage(this.isRouteAuthorized() ? children : <NotAuthorized />)}
+          {this.renderPage()}
         </div>
       </IntlProvider>
     );

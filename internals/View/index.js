@@ -6,6 +6,7 @@ import { config } from '../Config/functions';
 const DefaultLayout = require('./layouts/default');
 let _layouts = {
   default: DefaultLayout,
+  error: DefaultLayout,
 };
 
 export function registerLayouts(layouts) {
@@ -23,7 +24,7 @@ function layout(layoutName) {
 
 const View = {
   layout,
-  title
+  title,
 };
 
 export default View;
