@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, hashHistory } from 'react-router';
+import { hashHistory } from 'react-router';
+import Router from './View/components/ProxiedRouter';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { config, initConfig } from './Config';
 import { initIntl } from './Intl';

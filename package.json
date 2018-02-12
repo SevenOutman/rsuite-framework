@@ -37,11 +37,13 @@
     "reselect": "^3.0.1"
   },
   "peerDependencies": {
+    "lodash": "^4.17.5",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "rsuite": "^2.0.12"
   },
   "devDependencies": {
+    "lodash": "^4.17.5",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "redux-logger": "^3.0.6"
