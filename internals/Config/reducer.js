@@ -1,4 +1,3 @@
-
 import { toObjectLine } from '../utils';
 
 const initialState = {};
@@ -13,7 +12,7 @@ export default function (state = initialState, { type, values }) {
     case CONFIG_UPDATE:
       return {
         ...state,
-        values
+        ...values,
       };
     default:
       return state;
@@ -22,5 +21,5 @@ export default function (state = initialState, { type, values }) {
 
 export {
   CONFIG_INIT,
-  CONFIG_UPDATE
+  CONFIG_UPDATE,
 };

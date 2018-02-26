@@ -1,5 +1,5 @@
 {
-  "name": "@rsuite/framework",
+  "name": "rsuite-framework",
   "version": "0.1.0",
   "description": "Framework to power rsuite apps",
   "main": "framework.js",
