@@ -20,9 +20,11 @@ export function pageHOC(Comp, connect) {
 }
 
 export function componentHOC(Comp) {
-  return connectAdvanced(() => (state, props) => ({
-    framework: state.framework,
+  return connectAdvanced(() => ({ framework }, props) => ({
+    ...props,
+    framework,
   }), {
     getDisplayName: name => `Component(${name})`,
+    withRef: true,
   })(Comp);
 }
