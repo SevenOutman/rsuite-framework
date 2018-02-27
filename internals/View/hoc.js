@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component as ReactComponent } from 'react';
+import { connectAdvanced } from 'react-redux';
 
 export function pageHOC(Comp, connect) {
 
   const PageComp = connect ? connect(Comp) : Comp;
 
-  return class Page extends Component {
+  return class Page extends ReactComponent {
 
     static displayName = `Page(${Comp.displayName || Comp.name})`;
     static layout = Comp.layout;
@@ -16,4 +17,12 @@ export function pageHOC(Comp, connect) {
       );
     }
   }
+}
+
+export function componentHOC(Comp) {
+  return connectAdvanced(() => (state, props) => ({
+    framework: state.framework,
+  }), {
+    getDisplayName: name => `Component(${name})`,
+  })(Comp);
 }
