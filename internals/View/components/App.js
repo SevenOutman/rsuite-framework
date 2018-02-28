@@ -6,6 +6,7 @@ import Auth from '../../Auth';
 import NotAuthorized from '../pages/404';
 
 import { title } from '../../View/functions';
+import { componentHOC as component } from '../hoc';
 import { config } from '../../Config/functions';
 import { app } from '../../App/functions';
 import View from '../../View';
@@ -126,4 +127,4 @@ class App extends Component {
   }
 }
 
-module.exports = App;
+module.exports = component(App);
